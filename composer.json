@@ -1,0 +1,29 @@
+{
+  "name": "xdimedrolx/omnipay-money-kassa-mws",
+  "type": "library",
+  "description": "Yandex Money MWS gateway for Omnipay payment processing library",
+  "keywords": [
+    "yandex.kassa",
+    "mws",
+    "kassa",
+    "payment",
+    "omnipay",
+    "gateway"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "xdimedrolx",
+      "email": "xdimedrolx@yandex.ru"
+    }
+  ],
+  "autoload": {
+    "psr-4": { "Omnipay\\YandexKassaMws": "src/" }
+  },
+  "require": {
+    "omnipay/common": "~2.0"
+  },
+  "require-dev": {
+    "omnipay/tests": "~2.0"
+  }
+}
