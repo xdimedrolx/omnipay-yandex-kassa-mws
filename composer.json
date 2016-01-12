@@ -1,5 +1,5 @@
 {
-  "name": "xdimedrolx/omnipay-money-kassa-mws",
+  "name": "xdimedrolx/omnipay-yandex-kassa-mws",
   "type": "library",
   "description": "Yandex Money MWS gateway for Omnipay payment processing library",
   "keywords": [
