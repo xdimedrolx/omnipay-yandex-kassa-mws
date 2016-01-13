@@ -1,6 +1,6 @@
 <?php
 
-namespace Omnipay\YandexMoneyMws\Message;
+namespace Omnipay\YandexKassaMws\Message;
 
 use Omnipay\Common\Message\RequestInterface;
 

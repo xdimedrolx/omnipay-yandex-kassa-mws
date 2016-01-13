@@ -1,6 +1,6 @@
 <?php
 
-namespace Omnipay\YandexMoneyMws;
+namespace Omnipay\YandexKassaMws\Message;
 
 use Omnipay\Common\AbstractGateway;
 

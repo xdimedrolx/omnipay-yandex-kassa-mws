@@ -1,6 +1,6 @@
 <?php
 
-namespace Omnipay\YandexMoneyMws\Message;
+namespace Omnipay\YandexKassaMws\Message;
 
 class RepeatCardPaymentResponse extends AbstractResponse
 {
