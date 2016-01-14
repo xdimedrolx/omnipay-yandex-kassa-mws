@@ -62,6 +62,11 @@ class Gateway extends AbstractGateway
 		return $this->setParameter('shopId', $shopId);
 	}
 
+	public function returnPayment(array $parameters = array())
+	{
+		return $this->createRequest('\Omnipay\YandexKassaMws\Message\ReturnPaymentRequest', $parameters);
+	}
+
 //	public function fetchOrders(array $parameters = array())
 //	{
 //		return $this->createRequest('\Omnipay\YandexKassaMws\Message\FetchOrdersRequest', $parameters);

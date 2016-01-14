@@ -3,8 +3,9 @@
 namespace Omnipay\YandexKassaMws\Message;
 
 use Omnipay\Common\Message\RequestInterface;
+use Omnipay\Common\Message\AbstractResponse as OmnipayAbstractResponse;
 
-abstract class AbstractResponse extends \Omnipay\Common\Message\AbstractResponse
+abstract class AbstractResponse extends OmnipayAbstractResponse
 {
 	public function __construct(RequestInterface $request, \SimpleXMLElement $data)
 	{
@@ -14,6 +15,11 @@ abstract class AbstractResponse extends \Omnipay\Common\Message\AbstractResponse
 	public function isSuccessful()
 	{
 		return $this->getCode() == 0;
+	}
+
+	public function isCancelled()
+	{
+		return $this->getCode() == 3;
 	}
 
 	public function getCode()

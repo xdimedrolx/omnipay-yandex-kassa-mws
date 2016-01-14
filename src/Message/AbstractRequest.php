@@ -3,6 +3,8 @@
 namespace Omnipay\YandexKassaMws\Message;
 
 use Guzzle\Common\Event;
+use Omnipay\Common\Exception\BadMethodCallException;
+use Omnipay\Common\Exception\RuntimeException;
 
 abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 {
@@ -50,7 +52,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 		return $this->setParameter('shopId', $shopId);
 	}
 
-	protected function sendRequest($endpoint, $data = null)
+	protected function sendRequest($endpoint, $data = null, $contentType = 'application/x-www-form-urlencoded')
 	{
 		// don't throw exceptions for 4xx errors
 		$this->httpClient->getEventDispatcher()->addListener(
@@ -67,13 +69,11 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 		$httpResponse = $this->httpClient->createRequest(
 			'POST',
 			$this->getEndpoint() . $endpoint,
-			array(),
+			array('Content-type' => $contentType),
 			$data
 		);
 		$httpResponse->getCurlOptions()->set(CURLOPT_SSL_VERIFYPEER, false);
 		$httpResponse->getCurlOptions()->set(CURLOPT_SSL_VERIFYHOST, false);
-		$httpResponse->getCurlOptions()->set(CURLOPT_SSL_VERIFYHOST, false);
-		$httpResponse->getCurlOptions()->set(CURLOPT_SSLKEYTYPE, "DER");
 		$httpResponse->getCurlOptions()->set(CURLOPT_SSLCERT, $this->getCertFile());
 		$httpResponse->getCurlOptions()->set(CURLOPT_SSLKEY, $this->getKeyFile());
 
@@ -82,6 +82,43 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 		}
 
 		return $httpResponse->send();
+	}
+
+	/**
+	 * @param $data
+	 * @return string
+	 * @throws RuntimeException
+	 */
+	protected function signPKCS7($data)
+	{
+		$descriptorSpec = array(
+			array("pipe", "r"),
+			array("pipe", "w"),
+			array("pipe", "w")
+		);
+
+		try {
+			$opensslCommand = 'openssl smime -sign -signer ' . $this->getCertFile() .
+				' -inkey ' . $this->getKeyFile() . ' -nochain -nocerts -outform' .
+				' PEM -nodetach -passin pass:' . $this->getCertPass();
+			$process = proc_open($opensslCommand, $descriptorSpec, $pipes);
+
+			if (is_resource($process)) {
+				fwrite($pipes[0], $data);
+				fclose($pipes[0]);
+				$pkcs7 = stream_get_contents($pipes[1]);
+				fclose($pipes[1]);
+				$resCode = proc_close($process);
+				if ($resCode != 0) {
+					throw new RuntimeException('OpenSSL call failed:' . $resCode . '\n' . $pkcs7);
+				}
+				return $pkcs7;
+			}
+		} catch (RuntimeException $e) {
+			throw $e;
+		} catch (\Exception $e) {
+			throw new RuntimeException($e->getMessage(), $e->getCode(), $e);
+		}
 	}
 
 	protected function getEndpoint()
