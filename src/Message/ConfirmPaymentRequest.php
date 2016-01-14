@@ -52,7 +52,7 @@ class ConfirmPaymentRequest extends AbstractRequest
 			'currency' => $this->getCurrency(),
 			'orderId' => $this->getOrderId(),
 			'requestDT' => $this->getRequestDT() instanceof \DateTime ?
-				$this->getRequestDT()->format(DATE_ISO8601) : $this->getRequestDT()
+				$this->getRequestDT()->format(DATE_RFC3339) : $this->getRequestDT()
 		);
 	}
 

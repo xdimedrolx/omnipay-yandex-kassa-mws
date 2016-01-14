@@ -2,7 +2,7 @@
 
 namespace Omnipay\YandexKassaMws\Message;
 
-class CancelPaymentRequest extends AbstractRequest
+class ReturnPaymentRequest extends AbstractRequest
 {
 	public function getClientOrderId()
 	{
@@ -77,7 +77,7 @@ class CancelPaymentRequest extends AbstractRequest
 			'currency' => $this->getCurrency(),
 			'invoiceId' => $this->getInvoiceId(),
 			'requestDT' => $this->getRequestDT() instanceof \DateTime ?
-				$this->getRequestDT()->format(DATE_ISO8601) : $this->getRequestDT()
+				$this->getRequestDT()->format(DATE_RFC3339) : $this->getRequestDT()
 		);
 	}
 
