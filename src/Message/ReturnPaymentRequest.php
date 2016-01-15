@@ -66,7 +66,9 @@ class ReturnPaymentRequest extends AbstractRequest
 
 	public function getData()
 	{
-		$this->validate('amount', 'clientOrderId', 'shopId', 'cause', 'invoiceId', 'currency');
+		$this->validate(
+			'requestDT', 'amount', 'clientOrderId', 'shopId', 'cause', 'invoiceId', 'currency'
+		);
 
 		return array(
 			'amount' => !is_string($this->getAmount()) ?
