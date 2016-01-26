@@ -24,16 +24,6 @@ class ReturnPaymentRequest extends AbstractRequest
 		return $this->setParameter('invoiceId', $invoiceId);
 	}
 
-	public function getAmount()
-	{
-		return $this->getParameter('amount');
-	}
-
-	public function setAmount($amount)
-	{
-		return $this->setParameter('amount', $amount);
-	}
-
 	public function getCurrency()
 	{
 		return $this->getParameter('currency');

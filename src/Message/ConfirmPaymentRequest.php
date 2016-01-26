@@ -15,16 +15,6 @@ class ConfirmPaymentRequest extends AbstractRequest
 		return $this->setParameter('orderId', $orderId);
 	}
 
-	public function getAmount()
-	{
-		return $this->getParameter('amount');
-	}
-
-	public function setAmount($amount)
-	{
-		return $this->setParameter('amount', $amount);
-	}
-
 	public function getCurrency()
 	{
 		return $this->getParameter('currency');
