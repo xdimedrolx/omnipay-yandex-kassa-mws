@@ -11,7 +11,7 @@ class RepeatCardPaymentResponse extends AbstractResponse
 
 	public function getInvoiceId()
 	{
-		return isset($this->data->attributes()->invoiceId) ? (string) $this->data->attributes()->invoiceId : null;
+		return isset($this->data->attributes()->invoiceId) ? (int) $this->data->attributes()->invoiceId : null;
 	}
 
 	public function getData()
