@@ -71,8 +71,7 @@ class ReturnPaymentRequest extends AbstractRequest
 		);
 
 		return array(
-			'amount' => !is_string($this->getAmount()) ?
-				number_format($this->getAmount(), 2, '.', '') : $this->getAmount(),
+			'amount' => $this->getAmount(),
 			'clientOrderId' => $this->getClientOrderId(),
 			'shopId' => $this->getShopId(),
 			'cause' => $this->getCause(),

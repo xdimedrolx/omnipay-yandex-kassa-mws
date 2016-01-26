@@ -49,8 +49,7 @@ class RepeatCardPaymentRequest extends AbstractRequest
 		$this->validate('clientOrderId', 'invoiceId', 'amount', 'orderNumber');
 
 		$data = array();
-		$data['amount'] = !is_string($this->getAmount()) ?
-			number_format($this->getAmount(), 2, '.', '') : $this->getAmount();
+		$data['amount'] = $this->getAmount();
 		$data['clientOrderId'] = $this->getClientOrderId();
 		$data['invoiceId'] = $this->getInvoiceId();
 		$data['orderNumber'] = $this->getOrderNumber();
