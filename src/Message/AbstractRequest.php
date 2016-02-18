@@ -9,7 +9,7 @@ use Omnipay\Common\Exception\RuntimeException;
 abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 {
 	public $testEndpoint = 'https://penelope-demo.yamoney.ru:8083/webservice/mws/api/';
-	public $liveEndpoint = '';
+	public $liveEndpoint = 'https://penelope.yamoney.ru:443/webservice/mws/api/';
 
 
 	public function getCertFile()
